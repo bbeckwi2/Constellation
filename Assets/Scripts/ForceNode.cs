@@ -11,7 +11,11 @@ public class ForceNode : MonoBehaviour
     void Start(){
     }
 
-    void setParent(ForceNode n) {
+    public void setPos(Vector3 pos) {
+        this.transform.position = pos;
+    }
+
+    public void setParent(ForceNode n) {
         this.parent = n;
     }
 
@@ -29,7 +33,7 @@ public class ForceNode : MonoBehaviour
         float reqDist = Mathf.Pow(2f, ((float)childCount));
         if (distance < reqDist - wiggle  || distance > reqDist + wiggle) {
             print("Moving...");
-            this.transform.position = this.transform.position + (direction * 0.01f * ((distance > reqDist)? -1f: 1f));
+            this.transform.position = this.transform.position + (direction * 0.1f * ((distance > reqDist)? -1f: 1f));
         }
     }
 
