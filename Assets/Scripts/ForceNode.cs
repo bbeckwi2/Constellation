@@ -32,7 +32,6 @@ public class ForceNode : MonoBehaviour
         float distance = Vector3.Distance(this.parent.transform.position, this.transform.position);
         float reqDist = Mathf.Pow(2f, ((float)childCount));
         if (distance < reqDist - wiggle  || distance > reqDist + wiggle) {
-            print("Moving...");
             this.transform.position = this.transform.position + (direction * 0.1f * ((distance > reqDist)? -1f: 1f));
         }
     }

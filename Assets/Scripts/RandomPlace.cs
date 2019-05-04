@@ -6,12 +6,13 @@ public class RandomPlace : MonoBehaviour
 {
     public GameObject nodeFab;
     public List<GameObject> nodes;
+    public int numObjects = 20;
 
     // Start is called before the first frame update
     void Start() {
         nodes = new List<GameObject>();
         
-        for (int i =0; i < 40; i++) {
+        for (int i =0; i < numObjects; i++) {
             Vector3 loc = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
             GameObject t = Instantiate(nodeFab);
             ForceNode a = t.GetComponent<ForceNode>();
