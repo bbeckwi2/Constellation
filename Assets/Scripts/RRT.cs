@@ -38,7 +38,7 @@ public class RRT : MonoBehaviour{
      * Gets the next node position that need to be attached to the tree
      */
     NodeWithPos getNextNodePos() {
-        Vector3 nPoint = new Vector3(Random.Range(XMIN, XMAX), Random.Range(YMIN, YMAX), Random.Range(ZMIN, ZMAX));
+        Vector3 nPoint = new Vector3(this.START_POS.x + Random.Range(XMIN, XMAX), this.START_POS.y + Random.Range(YMIN, YMAX), this.START_POS.z + Random.Range(ZMIN, ZMAX));
         GameObject nextNode = nodes[0];
         foreach (GameObject n in nodes){
             if (Vector3.Distance(n.transform.position, nPoint) < Vector3.Distance(nextNode.transform.position, nPoint)) {
