@@ -1,17 +1,65 @@
 {
   "actions": [
     {
-      "name": "/actions/Default/in/lTriggerPull",
+      "name": "/actions/default/in/InteractUI",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/Teleport",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/GrabPinch",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/GrabGrip",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/lPose",
+      "type": "pose"
+    },
+    {
+      "name": "/actions/default/in/SkeletonLeftHand",
+      "type": "skeleton",
+      "skeleton": "/skeleton/hand/left"
+    },
+    {
+      "name": "/actions/default/in/SkeletonRightHand",
+      "type": "skeleton",
+      "skeleton": "/skeleton/hand/right"
+    },
+    {
+      "name": "/actions/default/in/Squeeze",
+      "type": "vector1",
+      "requirement": "optional"
+    },
+    {
+      "name": "/actions/default/in/HeadsetOnHead",
+      "type": "boolean",
+      "requirement": "optional"
+    },
+    {
+      "name": "/actions/default/in/lTriggerPull",
       "type": "vector1"
     },
     {
-      "name": "/actions/Default/in/rTriggerPull",
+      "name": "/actions/default/in/rTriggerPull",
       "type": "vector1"
+    },
+    {
+      "name": "/actions/default/in/rPose",
+      "type": "pose"
+    },
+    {
+      "name": "/actions/default/out/Haptic",
+      "type": "vibration"
     }
   ],
   "action_sets": [
     {
-      "name": "/actions/Default",
+      "name": "/actions/default",
       "usage": "leftright"
     }
   ],
@@ -55,7 +103,15 @@
   ],
   "localization": [
     {
-      "language_tag": "en_US"
+      "language_tag": "en_US",
+      "/actions/default/in/GrabGrip": "Grab Grip",
+      "/actions/default/in/GrabPinch": "Grab Pinch",
+      "/actions/default/in/HeadsetOnHead": "Headset on head (proximity sensor)",
+      "/actions/default/in/InteractUI": "Interact With UI",
+      "/actions/default/in/SkeletonLeftHand": "Skeleton (Left)",
+      "/actions/default/in/SkeletonRightHand": "Skeleton (Right)",
+      "/actions/default/in/Teleport": "Teleport",
+      "/actions/default/out/Haptic": "Haptic"
     }
   ]
 }

@@ -23,11 +23,11 @@
          ],
          "poses" : [
             {
-               "output" : "/actions/default/in/pose",
+               "output" : "/actions/default/in/lpose",
                "path" : "/user/hand/left/pose/raw"
             },
             {
-               "output" : "/actions/default/in/pose",
+               "output" : "/actions/default/in/rpose",
                "path" : "/user/hand/right/pose/raw"
             }
          ],
@@ -59,6 +59,11 @@
                },
                "mode" : "trigger",
                "path" : "/user/hand/right/input/trigger"
+            },
+            {
+               "inputs" : {},
+               "mode" : "none",
+               "path" : "/user/hand/left/input/skeleton/left"
             }
          ]
       },
