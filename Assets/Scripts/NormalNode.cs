@@ -12,7 +12,6 @@ public class NormalNode : MonoBehaviour
     public GameObject connectionFab;
     private GameObject connection;
 
-    private NodeType type;
     private NodeInfo info;
 
     private int dying = -1;
@@ -24,13 +23,11 @@ public class NormalNode : MonoBehaviour
     public void init() {
         children = new List<NormalNode>();
         isInit = true;
-        print(this.gameObject.transform.localScale);
         this.gameObject.transform.localScale = new Vector3(scale, scale, scale);
     }
 
     public void init(NodeType type, NodeInfo info) {
         this.init();
-        this.type = type;
         this.info = info;
     }
 
@@ -55,8 +52,12 @@ public class NormalNode : MonoBehaviour
         t.LookAt(gPos);
     }
 
+    public void setInfo(NodeInfo info) {
+        this.info = info;
+    }
+
     public NodeType getType() {
-        return this.type;
+        return this.info.type;
     }
 
     public NodeInfo getInfo() {
@@ -64,7 +65,6 @@ public class NormalNode : MonoBehaviour
     }
 
     public void remove() {
-        print("Set to remove!");
         foreach (NormalNode c in children) {
             c.remove();
         }
@@ -82,7 +82,6 @@ public class NormalNode : MonoBehaviour
             return;
         }
 
-        print(this.dying);
         if (this.dying > 0) {
             this.dying--;
             if (this.scale > 0) {

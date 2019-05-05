@@ -14,6 +14,7 @@ public class RandomPlace : MonoBehaviour
     private int cDelay = 0;
     private int spawned = 0;
     private float dying = -1f;
+
     // Start is called before the first frame update
     void Start() {
         rTree = new RRT();

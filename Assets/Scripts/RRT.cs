@@ -53,7 +53,7 @@ public class RRT : MonoBehaviour{
         return t;
     }
 
-    public GameObject generateNode() {
+    public GameObject generateNode(GameObject prefab) {
         GameObject newNode = Instantiate(nodeFab);
         NodeWithPos nP = getNextNodePos();
         newNode.transform.position = nP.nextPos;
@@ -65,6 +65,17 @@ public class RRT : MonoBehaviour{
         pNode.addChild(cNode);
         nodes.Add(newNode);
         return newNode;
+    }
+
+    public GameObject generateNode(GameObject prefab, NodeInfo info) {
+        GameObject node = generateNode(prefab);
+        NormalNode n = node.GetComponent<NormalNode>();
+        n.setInfo(info);
+        return node;
+    }
+
+    public GameObject generateNode() {
+        return generateNode(this.nodeFab);
     }
 
     public void remove() {
