@@ -11,13 +11,18 @@ public class RRT : MonoBehaviour{
     public float ZMIN = -10f;
     public float ZMAX = 10f;
 
-    public Vector3 START_NODE = new Vector3(0f, 0f, 0f);
+    public GameObject nodeFab;
+    public GameObject connectionFab;
+    public Vector3 START_POS = new Vector3(0f, 0f, 0f);
 
-    public List<Vector3> nodes = new List<Vector3>();
+    public List<GameObject> nodes = new List<GameObject>();
 
     public float nodeDist = 1;
     private bool isInit = false;
-
+    struct NodeWithPos {
+        public GameObject lastNode;
+        public Vector3 nextPos;
+    };
     /*
      * Helper function that gets the next valid location
      */
@@ -32,27 +37,41 @@ public class RRT : MonoBehaviour{
     /*
      * Gets the next node position that need to be attached to the tree
      */
-    Vector3 getNextNodePos() {
+    NodeWithPos getNextNodePos() {
         Vector3 nPoint = new Vector3(Random.Range(XMIN, XMAX), Random.Range(YMIN, YMAX), Random.Range(ZMIN, ZMAX));
-        Vector3 nextNode = nodes[0];
-        foreach (Vector3 n in nodes){
-            if (Vector3.Distance(n, nPoint) < Vector3.Distance(nextNode, nPoint)) {
+        GameObject nextNode = nodes[0];
+        foreach (GameObject n in nodes){
+            if (Vector3.Distance(n.transform.position, nPoint) < Vector3.Distance(nextNode.transform.position, nPoint)) {
                 nextNode = n;
             }
         }
-        return stepFromTo(nextNode, nPoint);
+        NodeWithPos t;
+        t.lastNode = nextNode;
+        t.nextPos = stepFromTo(nextNode.transform.position, nPoint);
+        return t;
     }
 
-    public GameObject generateNode(GameObject nodeFab) {
+    public GameObject generateNode() {
         GameObject newNode = Instantiate(nodeFab);
-        Vector3 pos = getNextNodePos();
-        newNode.transform.position = pos;
-        nodes.Add(pos);
+        NodeWithPos nP = getNextNodePos();
+        newNode.transform.position = nP.nextPos;
+        NormalNode cNode = newNode.GetComponent<NormalNode>();
+        cNode.connectionFab = connectionFab;
+        cNode.init();
+        NormalNode pNode = nP.lastNode.GetComponent<NormalNode>();
+        cNode.addParent(pNode);
+        pNode.addChild(cNode);
+        nodes.Add(newNode);
+        print(nodes.Count);
         return newNode;
     }
 
     public void init() {
-        nodes.Add(START_NODE);
+        GameObject nN = Instantiate(nodeFab);
+        nN.transform.position = START_POS;
+        NormalNode nNode = nN.GetComponent<NormalNode>();
+        nNode.init();
+        nodes.Add(nN);
         isInit = true;
     }
 
