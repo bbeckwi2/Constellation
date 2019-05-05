@@ -43,8 +43,8 @@ public class FloatyMove : MonoBehaviour{
     void Update() {
         lSpeed = movePlayer(lControllerPose, lTriggerPull, lSpeed);
         rSpeed = movePlayer(rControllerPose, rTriggerPull, rSpeed);
-        print("lSpeed: " + lSpeed);
-        print("rSpeed: " + rSpeed);
+        //print("lSpeed: " + lSpeed);
+        //print("rSpeed: " + rSpeed);
         Vector3 cameraPos = cameraRig.transform.position;
         cameraRig.transform.position = cameraPos + rSpeed + lSpeed;
     }

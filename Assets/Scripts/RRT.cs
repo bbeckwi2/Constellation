@@ -16,6 +16,8 @@ public class RRT : MonoBehaviour{
     public Vector3 START_POS = new Vector3(0f, 0f, 0f);
 
     public List<GameObject> nodes = new List<GameObject>();
+    
+    private int dying = -1;
 
     public float nodeDist = 1;
     private bool isInit = false;
@@ -62,14 +64,18 @@ public class RRT : MonoBehaviour{
         cNode.addParent(pNode);
         pNode.addChild(cNode);
         nodes.Add(newNode);
-        print(nodes.Count);
         return newNode;
+    }
+
+    public void remove() {
+        nodes[0].GetComponent<NormalNode>().remove();
     }
 
     public void init() {
         GameObject nN = Instantiate(nodeFab);
         nN.transform.position = START_POS;
         NormalNode nNode = nN.GetComponent<NormalNode>();
+        nNode.connectionFab = connectionFab;
         nNode.init();
         nodes.Add(nN);
         isInit = true;

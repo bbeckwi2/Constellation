@@ -13,6 +13,7 @@ public class RandomPlace : MonoBehaviour
     public int addDelay = 60;
     private int cDelay = 0;
     private int spawned = 0;
+    private float dying = -1f;
     // Start is called before the first frame update
     void Start() {
         rTree = new RRT();
@@ -31,6 +32,14 @@ public class RandomPlace : MonoBehaviour
     // Update is called once per frame
     void Update() {
         if (spawned > numObjects) {
+            if (dying == -1f) {
+                rTree.remove();
+                dying = 300;
+            } else if (dying > 0) {
+                dying--;
+            } else if (dying == 0) {
+                Destroy(this.gameObject);
+            }
             return;
         }
         if (cDelay >= addDelay) {
