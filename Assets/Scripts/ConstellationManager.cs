@@ -16,6 +16,7 @@ public class ConstellationManager : MonoBehaviour
     private float dying = -1f;
     private bool isInit = false;
 
+    /* Generates the core star */
     public void init(NodeInfo info) {
         rTree = new RRT();
         rTree.XMAX = BOX_SIZE;
@@ -31,7 +32,8 @@ public class ConstellationManager : MonoBehaviour
         n.GetComponent<NormalNode>().size = 0.75f;
         isInit = true;
     }
-    
+   
+    /* Gets the prefab for the specific type */
     private GameObject getFab(NodeInfo info) {
         switch (info.type) {
             case NodeType.movie:
@@ -43,6 +45,7 @@ public class ConstellationManager : MonoBehaviour
         }
     }
     
+    /* Adds a node, the node shape is determined by the info */
     public void addNode(NodeInfo info) {
         GameObject n = rTree.generateNode(getFab(info), info);
         if (info.type == NodeType.genre) {
@@ -51,7 +54,6 @@ public class ConstellationManager : MonoBehaviour
             Debug.Log(n.GetComponent<Renderer>().material.color);
         }
     }
-
 
     /* The death of the stars */
     public void remove() {

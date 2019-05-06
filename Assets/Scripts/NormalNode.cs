@@ -83,8 +83,10 @@ public class NormalNode : MonoBehaviour
         if (!isInit) {
             return;
         }
-
+        
+        /* Death Conditions */
         if (this.dying > 0) {
+            // If we are in the process of dying shrink stuff and decrement dying
             this.dying--;
             if (this.scale > 0) {
                 this.scale -= 0.001f;
@@ -93,6 +95,7 @@ public class NormalNode : MonoBehaviour
                 this.gameObject.transform.localScale = new Vector3(0f, 0f, 0f);
             }
 
+            // Special case for the head node, it has no parent so we have to exit
             if (this.parent == null) {
                 return;
             }
@@ -105,10 +108,12 @@ public class NormalNode : MonoBehaviour
             }
 
         } else if (this.dying == 0) {
+            // If we are dead, we destroy everything and exit
             Destroy(this.connection);
             Destroy(this.gameObject);
             Destroy(this);
         } else {
+            // This is used to grow the nodes and their connections 
             if (this.scale < size) {
                 this.scale += 0.01f;
                 this.gameObject.transform.localScale = new Vector3(scale, scale, scale);
