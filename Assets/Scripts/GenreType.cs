@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GenreTypes {
+public enum GenreType {
     Documentary = 0,
     Crime = 1,
     History = 2,
@@ -25,7 +25,7 @@ public enum GenreTypes {
     Fantasy = 19
 }
 
-public static class GenreTypesMethods {
+public static class GenreTypsMethods {
 
     private static Color[] colors = {
         new Color(128f, 128f, 128f), // Documentary
@@ -50,8 +50,7 @@ public static class GenreTypesMethods {
         new Color(060f, 180f, 075f), // Fantasy
     };
 
-
-    public static Color getColor(this GenreTypes t) {
+    public static Color getColor(this GenreType t) {
         return colors[(int) t];
     }
 

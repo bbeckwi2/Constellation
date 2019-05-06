@@ -26,7 +26,7 @@ public class NormalNode : MonoBehaviour
         this.gameObject.transform.localScale = new Vector3(scale, scale, scale);
     }
 
-    public void init(NodeType type, NodeInfo info) {
+    public void init(NodeInfo info) {
         this.init();
         this.info = info;
     }

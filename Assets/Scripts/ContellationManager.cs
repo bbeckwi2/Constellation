@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class ContellationManager : MonoBehaviour
 {
-    public GameObject nodeFab;
+    public GameObject movieFab;
+    public GameObject genreFab;
+    public GameObject dataFab;
 
     public GameObject connectionFab;
 
@@ -26,7 +28,7 @@ public class ContellationManager : MonoBehaviour
         rTree.ZMAX = BOX_SIZE;
         rTree.ZMIN = -BOX_SIZE;
         rTree.START_POS = this.transform.position;
-        rTree.nodeFab = nodeFab;
+        rTree.nodeFab = movieFab;
         rTree.connectionFab = connectionFab;
         rTree.init();
         init();
@@ -35,6 +37,8 @@ public class ContellationManager : MonoBehaviour
     public void init() {
         isInit = true;
     }
+
+
 
     /* The death of the stars */
     public void remove() {

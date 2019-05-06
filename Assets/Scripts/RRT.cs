@@ -92,6 +92,16 @@ public class RRT : MonoBehaviour{
         isInit = true;
     }
 
+    public void init(NodeInfo info, GameObject preFab) {
+        GameObject nN = Instantiate(preFab);
+        nN.transform.position = START_POS;
+        NormalNode nNode = nN.GetComponent<NormalNode>();
+        nNode.connectionFab = connectionFab;
+        nNode.init(info);
+        nodes.Add(nN);
+        isInit = true;
+    }
+
     // Update is called once per frame
     void Update() {
         if (!isInit) {
