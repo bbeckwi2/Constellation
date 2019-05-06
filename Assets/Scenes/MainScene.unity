@@ -142,7 +142,48 @@ MonoBehaviour:
   dampening: 0.995
   velocity: 0.03
   maxVelocity: 0.2
---- !u!43 &663465785
+--- !u!1 &908381330 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7811467977690620528, guid: 0d51938c930b1804caa146684ae8c7af,
+    type: 3}
+  m_PrefabInstance: {fileID: 7811467977524670178}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1011366567 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 124034, guid: 4d293c8e162f3874b982baadd71153d2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1524281287}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1011366568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011366567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4cbd0ae693952e4787552f572d601ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handType: 1
+  controllerPose: {fileID: 2123076040}
+  isClick:
+    actionPath: /actions/default/in/lTrackClick
+    needsReinit: 0
+  isTouch:
+    actionPath: /actions/default/in/lTrackTouch
+    needsReinit: 0
+  padPos:
+    actionPath: /actions/default/in/lTrackPos
+    needsReinit: 0
+  linePrefab: {fileID: 8152315014387791834, guid: cff618a06b043b54ba61b13bfb0a1a18,
+    type: 3}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  alphaIncrement: 17
+--- !u!43 &1180925791
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -302,12 +343,41 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &908381330 stripped
+--- !u!1 &1190411025 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 7811467977690620528, guid: 0d51938c930b1804caa146684ae8c7af,
+  m_CorrespondingSourceObject: {fileID: 159396, guid: 4d293c8e162f3874b982baadd71153d2,
     type: 3}
-  m_PrefabInstance: {fileID: 7811467977524670178}
+  m_PrefabInstance: {fileID: 1524281287}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1190411026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190411025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4cbd0ae693952e4787552f572d601ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handType: 2
+  controllerPose: {fileID: 1524281289}
+  isClick:
+    actionPath: /actions/default/in/rTrackClick
+    needsReinit: 0
+  isTouch:
+    actionPath: /actions/default/in/rTrackTouch
+    needsReinit: 0
+  padPos:
+    actionPath: /actions/default/in/rTrackPos
+    needsReinit: 0
+  linePrefab: {fileID: 8152315014387791834, guid: cff618a06b043b54ba61b13bfb0a1a18,
+    type: 3}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  alphaIncrement: 17
 --- !u!1 &1199861634
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,11 +481,11 @@ PrefabInstance:
     - target: {fileID: 3380982, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 663465785}
+      objectReference: {fileID: 1180925791}
     - target: {fileID: 2348914, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 1990911952}
+      objectReference: {fileID: 1840369297}
     - target: {fileID: 114000010110554832, guid: 4d293c8e162f3874b982baadd71153d2,
         type: 3}
       propertyPath: poseAction.actionPath
@@ -434,13 +504,13 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1524281287}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1190411025}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a5fb0ca93b55ef4b8d54b512b103341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!21 &1990911952
+--- !u!21 &1840369297
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -480,7 +550,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1524281287}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1011366567}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a5fb0ca93b55ef4b8d54b512b103341, type: 3}

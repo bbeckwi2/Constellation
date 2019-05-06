@@ -18,13 +18,20 @@ public class NormalNode : MonoBehaviour
 
     private int dying = -1;
 
+    
     private float scale = 0.0f;
     private float cScaleGoal = 0.0f;
     private float cScale = 0.0f;
 
+    private Color color;
+    private Color tColor;
+    private float tmpCTimeLeft = -2;
+    private float tmpMTimeLeft = -2;
+
     public void init() {
         children = new List<NormalNode>();
         isInit = true;
+        this.color = this.gameObject.GetComponent<Renderer>().material.color;
         this.gameObject.transform.localScale = new Vector3(scale, scale, scale);
     }
 
@@ -77,11 +84,34 @@ public class NormalNode : MonoBehaviour
         children.Add(child);
     }
 
+    public void setColor(Color color) {
+        this.gameObject.GetComponent<Renderer>().material.color = color;
+        this.color = color;
+    }
+
+    public void tempColor(Color c, float time) {
+        this.tColor = c;
+        this.tmpCTimeLeft = time;
+        this.tmpMTimeLeft = time;
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (!isInit) {
             return;
+        }
+
+        if (this.tmpCTimeLeft > 0f) {
+            float per = tmpCTimeLeft / tmpMTimeLeft;
+            Vector3 gV = new Vector3(color.r, color.g, color.b);
+            Vector3 sV = new Vector3(tColor.r, tColor.g, tColor.b);
+            Vector3 cV = Vector3.Lerp(gV, sV, per);
+            this.gameObject.GetComponent<Renderer>().material.color = new Color(cV.x, cV.y, cV.z);
+            this.tmpCTimeLeft = Mathf.Max(tmpCTimeLeft - 0.05f, 0f);
+        } else if (this.tmpCTimeLeft > -1f) {
+            tmpCTimeLeft = -2f;
+            this.gameObject.GetComponent<Renderer>().material.color = this.color;
         }
         
         /* Death Conditions */

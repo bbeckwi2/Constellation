@@ -5,6 +5,7 @@ using Valve.VR;
 
 public class DisplayScript : MonoBehaviour
 {
+    public SteamVR_Input_Sources handType;
     public SteamVR_Behaviour_Pose controllerPose;
     public SteamVR_Action_Boolean isClick;
     public SteamVR_Action_Boolean isTouch;
@@ -13,9 +14,13 @@ public class DisplayScript : MonoBehaviour
     public GameObject linePrefab;
     private GameObject line;
     private Transform lineTransform;
+    private GameObject lastTouched;
+    private int missCount = 0;
+
+    public LayerMask layerMask;
 
     private float alpha = 0.0f;
-    public float alphaIncrement = 0.01f;
+    public float alphaIncrement = 1f;
 
     void Start() {
         line = Instantiate(linePrefab);
@@ -23,34 +28,44 @@ public class DisplayScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if ((isTouch.state || isTouch.lastState) && alpha < 255f) {
+    void Update() {
+        /* This is for both style and user feedback */
+        if (isTouch.state && alpha < 255f) {
             alpha += alphaIncrement;
         } else if (alpha > 0f) {
             alpha -= alphaIncrement;
         }
-        print(alpha);
 
+        /* This handles the laser that shoots out of the controller and how it collides with things */
         if (alpha > 0) {
             RaycastHit hit;
-            if (Physics.Raycast(controllerPose.transform.position, transform.forward, out hit, 100)) {
-                ShowLine(hit.point, hit.distance);
+            if (Physics.Raycast(controllerPose.transform.position, transform.forward, out hit, 20, layerMask)) {
+                showLine(hit.point, hit.distance);
                 GameObject o = hit.transform.gameObject;
                 if (o.GetComponent<NormalNode>() != null) {
-                    print("Has node!");
-                } else {
-                    print("Missing node!");
+                    if (lastTouched != null && !lastTouched.Equals(o)) {
+
+                    } else {
+                        o.GetComponent<NormalNode>().tempColor(this.line.GetComponent<Renderer>().material.color, 1f);
+                        lastTouched = o;
+                    }
                 }
             } else {
-                ShowLine(controllerPose.transform.position + transform.forward * 10000f, 10000f);               
+                showLine(controllerPose.transform.position + transform.forward * 10000f, 10000f);               
+                if (lastTouched != null) {
+                    lastTouched = null;
+                }
             }
         } else {
             line.SetActive(false);
         }
     }
 
-    private void ShowLine(Vector3 point, float distance) {
+    private void displayInfo(NodeInfo info) {
+        //Display code goes here :3
+    }
+
+    private void showLine(Vector3 point, float distance) {
         line.SetActive(true);
         Color c = line.GetComponent<Renderer>().material.color;
         c.a = alpha;

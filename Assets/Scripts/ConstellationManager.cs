@@ -50,8 +50,7 @@ public class ConstellationManager : MonoBehaviour
         GameObject n = rTree.generateNode(getFab(info), info);
         if (info.type == NodeType.genre) {
             Color c = info.genreType.getColor();
-            n.GetComponent<Renderer>().material.color = c;
-            Debug.Log(n.GetComponent<Renderer>().material.color);
+            n.GetComponent<NormalNode>().setColor(c);
         }
     }
 

@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2106449240399366120}
   - component: {fileID: 2106449240399366121}
   - component: {fileID: 6947852265172469859}
-  m_Layer: 0
-  m_Name: Star
+  m_Layer: 9
+  m_Name: NormalNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,4 +104,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76086ccb972a87f4db23d2e95b5d47d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  size: 0.25
   connectionFab: {fileID: 0}
