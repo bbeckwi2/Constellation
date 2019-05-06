@@ -5,18 +5,6 @@
       "type": "boolean"
     },
     {
-      "name": "/actions/default/in/Teleport",
-      "type": "boolean"
-    },
-    {
-      "name": "/actions/default/in/GrabPinch",
-      "type": "boolean"
-    },
-    {
-      "name": "/actions/default/in/GrabGrip",
-      "type": "boolean"
-    },
-    {
       "name": "/actions/default/in/lPose",
       "type": "pose"
     },
@@ -51,6 +39,31 @@
     {
       "name": "/actions/default/in/rPose",
       "type": "pose"
+    },
+    {
+      "name": "/actions/default/in/rTrackTouch",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/rTrackClick",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/rTrackPos",
+      "type": "vector2",
+      "requirement": "suggested"
+    },
+    {
+      "name": "/actions/default/in/lTrackTouch",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/lTrackClick",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/lTrackPos",
+      "type": "vector2"
     },
     {
       "name": "/actions/default/out/Haptic",
@@ -104,13 +117,10 @@
   "localization": [
     {
       "language_tag": "en_US",
-      "/actions/default/in/GrabGrip": "Grab Grip",
-      "/actions/default/in/GrabPinch": "Grab Pinch",
       "/actions/default/in/HeadsetOnHead": "Headset on head (proximity sensor)",
       "/actions/default/in/InteractUI": "Interact With UI",
       "/actions/default/in/SkeletonLeftHand": "Skeleton (Left)",
       "/actions/default/in/SkeletonRightHand": "Skeleton (Right)",
-      "/actions/default/in/Teleport": "Teleport",
       "/actions/default/out/Haptic": "Haptic"
     }
   ]

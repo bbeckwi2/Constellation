@@ -25,30 +25,6 @@ namespace Valve.VR
             }
         }
         
-        public virtual SteamVR_Action_Boolean Teleport
-        {
-            get
-            {
-                return SteamVR_Actions.default_Teleport;
-            }
-        }
-        
-        public virtual SteamVR_Action_Boolean GrabPinch
-        {
-            get
-            {
-                return SteamVR_Actions.default_GrabPinch;
-            }
-        }
-        
-        public virtual SteamVR_Action_Boolean GrabGrip
-        {
-            get
-            {
-                return SteamVR_Actions.default_GrabGrip;
-            }
-        }
-        
         public virtual SteamVR_Action_Pose lPose
         {
             get
@@ -110,6 +86,54 @@ namespace Valve.VR
             get
             {
                 return SteamVR_Actions.default_rPose;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean rTrackTouch
+        {
+            get
+            {
+                return SteamVR_Actions.default_rTrackTouch;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean rTrackClick
+        {
+            get
+            {
+                return SteamVR_Actions.default_rTrackClick;
+            }
+        }
+        
+        public virtual SteamVR_Action_Vector2 rTrackPos
+        {
+            get
+            {
+                return SteamVR_Actions.default_rTrackPos;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean lTrackTouch
+        {
+            get
+            {
+                return SteamVR_Actions.default_lTrackTouch;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean lTrackClick
+        {
+            get
+            {
+                return SteamVR_Actions.default_lTrackClick;
+            }
+        }
+        
+        public virtual SteamVR_Action_Vector2 lTrackPos
+        {
+            get
+            {
+                return SteamVR_Actions.default_lTrackPos;
             }
         }
         

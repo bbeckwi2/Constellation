@@ -64,6 +64,36 @@
                "inputs" : {},
                "mode" : "none",
                "path" : "/user/hand/left/input/skeleton/left"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/ltrackclick"
+                  },
+                  "position" : {
+                     "output" : "/actions/default/in/ltrackpos"
+                  },
+                  "touch" : {
+                     "output" : "/actions/default/in/ltracktouch"
+                  }
+               },
+               "mode" : "trackpad",
+               "path" : "/user/hand/left/input/trackpad"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/rtrackclick"
+                  },
+                  "position" : {
+                     "output" : "/actions/default/in/rtrackpos"
+                  },
+                  "touch" : {
+                     "output" : "/actions/default/in/rtracktouch"
+                  }
+               },
+               "mode" : "trackpad",
+               "path" : "/user/hand/right/input/trackpad"
             }
          ]
       },
