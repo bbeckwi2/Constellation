@@ -9,6 +9,8 @@ public class NormalNode : MonoBehaviour
 
     private bool isInit = false;
 
+    public float size = 0.25f;
+
     public GameObject connectionFab;
     private GameObject connection;
 
@@ -107,7 +109,7 @@ public class NormalNode : MonoBehaviour
             Destroy(this.gameObject);
             Destroy(this);
         } else {
-            if (this.scale < 0.3) {
+            if (this.scale < size) {
                 this.scale += 0.01f;
                 this.gameObject.transform.localScale = new Vector3(scale, scale, scale);
             }

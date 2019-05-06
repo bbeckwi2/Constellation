@@ -13,7 +13,7 @@ public class CSVReader {
     private StreamReader reader;
 
     private char delimeter = ',';
-    private string filter = "\"";
+    private string filter = "";
 
     public List<string> categories;
     public Dictionary<string, List<string>> data;
@@ -38,6 +38,8 @@ public class CSVReader {
 
         bool first = true;
 
+        int count = 1;
+
         while (!reader.EndOfStream) {
             string line = reader.ReadLine();
             string[] vals = line.Split(delimeter);
@@ -52,10 +54,12 @@ public class CSVReader {
                 continue;
             }
 
+            Debug.Log(count);
+            Debug.Log(vals.Length);
             for (int i = 0; i < categories.Count; i++) {
                 data[categories[i]].Add(Regex.Replace(vals[i], filter, string.Empty));
             }
-
+            count++;
         }
     }
 

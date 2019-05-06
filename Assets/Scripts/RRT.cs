@@ -22,7 +22,7 @@ public class RRT : MonoBehaviour{
     public float nodeDist = 1;
     private bool isInit = false;
 
-    public void init() {
+    public GameObject init() {
         GameObject nN = Instantiate(nodeFab);
         nN.transform.position = START_POS;
         NormalNode nNode = nN.GetComponent<NormalNode>();
@@ -30,9 +30,10 @@ public class RRT : MonoBehaviour{
         nNode.init();
         nodes.Add(nN);
         isInit = true;
+        return nN;
     }
 
-    public void init(GameObject preFab, NodeInfo info) {
+    public GameObject init(GameObject preFab, NodeInfo info) {
         GameObject nN = Instantiate(preFab);
         nN.transform.position = START_POS;
         NormalNode nNode = nN.GetComponent<NormalNode>();
@@ -40,6 +41,7 @@ public class RRT : MonoBehaviour{
         nNode.init(info);
         nodes.Add(nN);
         isInit = true;
+        return nN;
     }
 
     struct NodeWithPos {
@@ -54,7 +56,7 @@ public class RRT : MonoBehaviour{
         if (Vector3.Distance(v1, v2) < nodeDist) {
             return v2;
         } else {
-            return Vector3.MoveTowards(v1, v2, nodeDist);
+            return Vector3.MoveTowards(v1, v2, Random.Range(nodeDist, nodeDist * 2));
         }
     }
 
@@ -76,7 +78,7 @@ public class RRT : MonoBehaviour{
     }
 
     public GameObject generateNode(GameObject prefab) {
-        GameObject newNode = Instantiate(nodeFab);
+        GameObject newNode = Instantiate(prefab);
         NodeWithPos nP = getNextNodePos();
         newNode.transform.position = nP.nextPos;
         NormalNode cNode = newNode.GetComponent<NormalNode>();
