@@ -21,10 +21,32 @@ public class RRT : MonoBehaviour{
 
     public float nodeDist = 1;
     private bool isInit = false;
+
+    public void init() {
+        GameObject nN = Instantiate(nodeFab);
+        nN.transform.position = START_POS;
+        NormalNode nNode = nN.GetComponent<NormalNode>();
+        nNode.connectionFab = connectionFab;
+        nNode.init();
+        nodes.Add(nN);
+        isInit = true;
+    }
+
+    public void init(GameObject preFab, NodeInfo info) {
+        GameObject nN = Instantiate(preFab);
+        nN.transform.position = START_POS;
+        NormalNode nNode = nN.GetComponent<NormalNode>();
+        nNode.connectionFab = connectionFab;
+        nNode.init(info);
+        nodes.Add(nN);
+        isInit = true;
+    }
+
     struct NodeWithPos {
         public GameObject lastNode;
         public Vector3 nextPos;
     };
+
     /*
      * Helper function that gets the next valid location
      */
@@ -80,26 +102,6 @@ public class RRT : MonoBehaviour{
 
     public void remove() {
         nodes[0].GetComponent<NormalNode>().remove();
-    }
-
-    public void init() {
-        GameObject nN = Instantiate(nodeFab);
-        nN.transform.position = START_POS;
-        NormalNode nNode = nN.GetComponent<NormalNode>();
-        nNode.connectionFab = connectionFab;
-        nNode.init();
-        nodes.Add(nN);
-        isInit = true;
-    }
-
-    public void init(NodeInfo info, GameObject preFab) {
-        GameObject nN = Instantiate(preFab);
-        nN.transform.position = START_POS;
-        NormalNode nNode = nN.GetComponent<NormalNode>();
-        nNode.connectionFab = connectionFab;
-        nNode.init(info);
-        nodes.Add(nN);
-        isInit = true;
     }
 
     // Update is called once per frame

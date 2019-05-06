@@ -18,8 +18,7 @@ public class ContellationManager : MonoBehaviour
     private float dying = -1f;
     private bool isInit = false;
 
-    // Start is called before the first frame update
-    void Start() {
+    public void init(NodeInfo info) {
         rTree = new RRT();
         rTree.XMAX = BOX_SIZE;
         rTree.XMIN = -BOX_SIZE;
@@ -30,14 +29,24 @@ public class ContellationManager : MonoBehaviour
         rTree.START_POS = this.transform.position;
         rTree.nodeFab = movieFab;
         rTree.connectionFab = connectionFab;
-        rTree.init();
-        init();
-    }
-
-    public void init() {
+        rTree.init(getFab(info), info);
         isInit = true;
     }
-
+    
+    private GameObject getFab(NodeInfo info) {
+        switch (info.type) {
+            case NodeType.movie:
+                return movieFab;
+            case NodeType.genre:
+                return genreFab;
+            default:
+                return dataFab;
+        }
+    }
+    
+    public void addNode(NodeInfo info) {
+        nodes.Add(rTree.generateNode(getFab(info), info));
+    }
 
 
     /* The death of the stars */
