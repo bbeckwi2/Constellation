@@ -11,6 +11,11 @@ public class DisplayScript : MonoBehaviour
     public SteamVR_Action_Boolean isTouch;
     public SteamVR_Action_Vector2 padPos;
 
+    public GameObject textObject;
+    private TextDisplay textDisplay;
+
+
+    public GameObject headObject;
     public GameObject linePrefab;
     private GameObject line;
     private Transform lineTransform;
@@ -25,6 +30,7 @@ public class DisplayScript : MonoBehaviour
     void Start() {
         line = Instantiate(linePrefab);
         lineTransform = line.transform;
+        textDisplay = textObject.GetComponent<TextDisplay>();
     }
 
     // Update is called once per frame
@@ -38,7 +44,9 @@ public class DisplayScript : MonoBehaviour
 
         /* This handles the laser that shoots out of the controller and how it collides with things */
         if (alpha > 0) {
+
             RaycastHit hit;
+
             if (Physics.Raycast(controllerPose.transform.position, transform.forward, out hit, 20, layerMask)) {
                 showLine(hit.point, hit.distance);
                 GameObject o = hit.transform.gameObject;
@@ -48,6 +56,7 @@ public class DisplayScript : MonoBehaviour
                     } else {
                         o.GetComponent<NormalNode>().tempColor(this.line.GetComponent<Renderer>().material.color, 1f);
                         lastTouched = o;
+                        displayInfo(o.GetComponent<NormalNode>().getInfo());
                     }
                 }
             } else {
@@ -55,14 +64,28 @@ public class DisplayScript : MonoBehaviour
                 if (lastTouched != null) {
                     lastTouched = null;
                 }
+                if (textObject.activeSelf) {
+                    hideInfo();
+                }
+            }
+            if (textObject.activeSelf) {
+                textObject.transform.position = controllerPose.transform.position;
+                textObject.transform.LookAt(headObject.transform);
             }
         } else {
             line.SetActive(false);
+            hideInfo();
         }
     }
 
     private void displayInfo(NodeInfo info) {
-        //Display code goes here :3
+        textObject.SetActive(true);
+        textDisplay.setTitle(info.name);
+        textDisplay.setText(info.details);
+    }
+
+    private void hideInfo() {
+        textObject.SetActive(false);
     }
 
     private void showLine(Vector3 point, float distance) {
