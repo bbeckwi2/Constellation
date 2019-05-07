@@ -66,6 +66,14 @@
       "type": "vector2"
     },
     {
+      "name": "/actions/default/in/lSelect",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/rSelect",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     }

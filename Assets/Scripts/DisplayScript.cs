@@ -10,10 +10,10 @@ public class DisplayScript : MonoBehaviour
     public SteamVR_Action_Boolean isClick;
     public SteamVR_Action_Boolean isTouch;
     public SteamVR_Action_Vector2 padPos;
+    public SteamVR_Action_Boolean grabSelection;
 
     public GameObject textObject;
     private TextDisplay textDisplay;
-
 
     public GameObject headObject;
     public GameObject linePrefab;
@@ -27,10 +27,13 @@ public class DisplayScript : MonoBehaviour
     private float alpha = 0.0f;
     public float alphaIncrement = 1f;
 
+    private List<GameObject> selection;
+
     void Start() {
         line = Instantiate(linePrefab);
         lineTransform = line.transform;
         textDisplay = textObject.GetComponent<TextDisplay>();
+        selection = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -76,12 +79,25 @@ public class DisplayScript : MonoBehaviour
             line.SetActive(false);
             hideInfo();
         }
+
+        if (lastTouched != null && grabSelection.state && !grabSelection.lastState) {
+            if (selection.Contains(lastTouched)) {
+                selection.Remove(lastTouched);
+            } else {
+                selection.Add(lastTouched);
+            }
+        }
+
+        foreach (GameObject o in selection) {
+            o.GetComponent<NormalNode>().tempColor(this.line.GetComponent<Renderer>().material.color, 1f);
+        }
+
     }
 
     private void displayInfo(NodeInfo info) {
         textObject.SetActive(true);
         textDisplay.setTitle(info.name);
-        textDisplay.setText(TextDisplay.formatTextForMain(info.details));
+        textDisplay.setText(textDisplay.formatTextForMain(info.details));
     }
 
     private void hideInfo() {

@@ -47,6 +47,10 @@ namespace Valve.VR
         
         private static SteamVR_Action_Vector2 p_default_lTrackPos;
         
+        private static SteamVR_Action_Boolean p_default_lSelect;
+        
+        private static SteamVR_Action_Boolean p_default_rSelect;
+        
         private static SteamVR_Action_Vibration p_default_Haptic;
         
         public static SteamVR_Action_Boolean default_InteractUI
@@ -169,6 +173,22 @@ namespace Valve.VR
             }
         }
         
+        public static SteamVR_Action_Boolean default_lSelect
+        {
+            get
+            {
+                return SteamVR_Actions.p_default_lSelect.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean default_rSelect
+        {
+            get
+            {
+                return SteamVR_Actions.p_default_rSelect.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
         public static SteamVR_Action_Vibration default_Haptic
         {
             get
@@ -195,6 +215,8 @@ namespace Valve.VR
                     SteamVR_Actions.default_lTrackTouch,
                     SteamVR_Actions.default_lTrackClick,
                     SteamVR_Actions.default_lTrackPos,
+                    SteamVR_Actions.default_lSelect,
+                    SteamVR_Actions.default_rSelect,
                     SteamVR_Actions.default_Haptic};
             Valve.VR.SteamVR_Input.actionsIn = new Valve.VR.ISteamVR_Action_In[] {
                     SteamVR_Actions.default_InteractUI,
@@ -211,7 +233,9 @@ namespace Valve.VR
                     SteamVR_Actions.default_rTrackPos,
                     SteamVR_Actions.default_lTrackTouch,
                     SteamVR_Actions.default_lTrackClick,
-                    SteamVR_Actions.default_lTrackPos};
+                    SteamVR_Actions.default_lTrackPos,
+                    SteamVR_Actions.default_lSelect,
+                    SteamVR_Actions.default_rSelect};
             Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[] {
                     SteamVR_Actions.default_Haptic};
             Valve.VR.SteamVR_Input.actionsVibration = new Valve.VR.SteamVR_Action_Vibration[] {
@@ -225,7 +249,9 @@ namespace Valve.VR
                     SteamVR_Actions.default_rTrackTouch,
                     SteamVR_Actions.default_rTrackClick,
                     SteamVR_Actions.default_lTrackTouch,
-                    SteamVR_Actions.default_lTrackClick};
+                    SteamVR_Actions.default_lTrackClick,
+                    SteamVR_Actions.default_lSelect,
+                    SteamVR_Actions.default_rSelect};
             Valve.VR.SteamVR_Input.actionsSingle = new Valve.VR.SteamVR_Action_Single[] {
                     SteamVR_Actions.default_Squeeze,
                     SteamVR_Actions.default_lTriggerPull,
@@ -248,7 +274,9 @@ namespace Valve.VR
                     SteamVR_Actions.default_rTrackPos,
                     SteamVR_Actions.default_lTrackTouch,
                     SteamVR_Actions.default_lTrackClick,
-                    SteamVR_Actions.default_lTrackPos};
+                    SteamVR_Actions.default_lTrackPos,
+                    SteamVR_Actions.default_lSelect,
+                    SteamVR_Actions.default_rSelect};
         }
         
         private static void PreInitActions()
@@ -268,6 +296,8 @@ namespace Valve.VR
             SteamVR_Actions.p_default_lTrackTouch = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/lTrackTouch")));
             SteamVR_Actions.p_default_lTrackClick = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/lTrackClick")));
             SteamVR_Actions.p_default_lTrackPos = ((SteamVR_Action_Vector2)(SteamVR_Action.Create<SteamVR_Action_Vector2>("/actions/default/in/lTrackPos")));
+            SteamVR_Actions.p_default_lSelect = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/lSelect")));
+            SteamVR_Actions.p_default_rSelect = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/rSelect")));
             SteamVR_Actions.p_default_Haptic = ((SteamVR_Action_Vibration)(SteamVR_Action.Create<SteamVR_Action_Vibration>("/actions/default/out/Haptic")));
         }
     }

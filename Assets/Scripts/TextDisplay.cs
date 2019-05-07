@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class TextDisplay : MonoBehaviour
 {
-    public static int CHARS_PER_LINE = 25;
-    public static int CHARS_TITLE = 12;
-    public static int MAX_LINES = 8;
+    public int CHARS_PER_LINE = 25;
+    public int CHARS_TITLE = 12;
+    public int MAX_LINES = 8;
 
 
     public GameObject titleDisplay;
@@ -50,7 +50,7 @@ public class TextDisplay : MonoBehaviour
     }
 
     /* Attempts to format the text for the main display, clips extra lines */
-    public static string formatTextForMain(string text) {
+    public string formatTextForMain(string text) {
         string outString = "";
         int charCount = 0;
         int lineCount = 0;
