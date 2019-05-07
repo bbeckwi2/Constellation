@@ -69,7 +69,7 @@ public class DisplayScript : MonoBehaviour
                 }
             }
             if (textObject.activeSelf) {
-                textObject.transform.position = controllerPose.transform.position;
+                textObject.transform.position = controllerPose.transform.position + Vector3.up * 0.1f;
                 textObject.transform.LookAt(headObject.transform);
             }
         } else {
@@ -81,7 +81,7 @@ public class DisplayScript : MonoBehaviour
     private void displayInfo(NodeInfo info) {
         textObject.SetActive(true);
         textDisplay.setTitle(info.name);
-        textDisplay.setText(info.details);
+        textDisplay.setText(TextDisplay.formatTextForMain(info.details));
     }
 
     private void hideInfo() {

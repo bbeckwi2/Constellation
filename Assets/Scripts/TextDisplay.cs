@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class TextDisplay : MonoBehaviour
 {
-    public int CHARS_PER_LINE = 25;
-    public int CHARS_TITLE = 12;
-    public int MAX_LINES = 8;
+    public static int CHARS_PER_LINE = 25;
+    public static int CHARS_TITLE = 12;
+    public static int MAX_LINES = 8;
 
 
     public GameObject titleDisplay;
@@ -50,8 +50,23 @@ public class TextDisplay : MonoBehaviour
     }
 
     /* Attempts to format the text for the main display, clips extra lines */
-    public string formatTextForMain(string text) {
-        return "";
+    public static string formatTextForMain(string text) {
+        string outString = "";
+        int charCount = 0;
+        int lineCount = 0;
+        foreach (string s in text.Split(' ')) {
+            if (charCount + s.Length > CHARS_PER_LINE) {
+                outString += System.Environment.NewLine + s;
+                charCount = s.Length;
+                lineCount++;
+            } else if (lineCount == MAX_LINES){
+                outString += " ...";
+            } else {
+                charCount += s.Length;
+                outString += ' ' + s;
+            }
+        }
+        return outString;
     }
 
     // Start is called before the first frame update
