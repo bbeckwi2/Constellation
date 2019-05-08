@@ -31,6 +31,8 @@ public class DisplayScript : MonoBehaviour
     public LayerMask noTouch;
     public LayerMask layerMask;
 
+    private GameObject cSelected;
+
     private float alpha = 0.0f;
     public float alphaIncrement = 1f;
 
@@ -41,6 +43,7 @@ public class DisplayScript : MonoBehaviour
     private Color originalColor;
 
     public Color deleteColor = new Color(1f, 0f, 0f);
+    public Color pinColor = new Color(0f, 1f, 0f);
 
     private float rad = 0.05f;
 
@@ -63,8 +66,13 @@ public class DisplayScript : MonoBehaviour
             o.GetComponent<NormalNode>().tempColor(originalColor, 1f);
         }
 
+        if (cSelected != null) {
+            cSelected.GetComponent<NormalNode>().tempColor(pinColor, 1f);
+            displayInfo(cSelected.GetComponent<NormalNode>().getInfo());
+        }
+
         /* This is for both style and user feedback */
-        if ((getTouchType() == TButtonType.middle || getTouchType() == TButtonType.left) && alpha < 255f) {
+        if ((getTouchType() == TButtonType.middle || getTouchType() == TButtonType.left || getTouchType() == TButtonType.right) && alpha < 255f) {
             alpha += alphaIncrement;
         } else if (alpha > 0f) {
             alpha -= alphaIncrement;
@@ -72,9 +80,14 @@ public class DisplayScript : MonoBehaviour
 
         if (getTouchType() == TButtonType.left) {
             line.GetComponent<Renderer>().material.color = deleteColor;
+        } else if (getTouchType() == TButtonType.right) {
+            line.GetComponent<Renderer>().material.color = pinColor;
         } else {
             line.GetComponent<Renderer>().material.color = originalColor;
         }
+
+        textObject.transform.position = controllerPose.transform.position + Vector3.up * 0.1f;
+        textObject.transform.LookAt(headObject.transform);
 
         /* This handles the laser that shoots out of the controller and how it collides with things */
         if (alpha > 0) {
@@ -96,18 +109,12 @@ public class DisplayScript : MonoBehaviour
                 showLine(controllerPose.transform.position + transform.forward * 10000f, 10000f);               
                 if (lastTouched != null) {
                     lastTouched = null;
+                    if (cSelected == null)
+                        hideInfo();
                 }
-                if (textObject.activeSelf) {
-                    hideInfo();
-                }
-            }
-            if (textObject.activeSelf) {
-                textObject.transform.position = controllerPose.transform.position + Vector3.up * 0.1f;
-                textObject.transform.LookAt(headObject.transform);
             }
         } else {
             line.SetActive(false);
-            hideInfo();
         }
 
         if (getTouchType() == TButtonType.bottom) {
@@ -150,6 +157,23 @@ public class DisplayScript : MonoBehaviour
                 selection.Clear();
             }
 
+
+            if (getButtonPress() == TButtonType.right) {
+                if (lastTouched != null) {
+                    if (cSelected == lastTouched) {
+                        cSelected = null;
+                        hideInfo();
+                    } else {
+                        cSelected = lastTouched;
+                        cSelected.GetComponent<NormalNode>().tempColor(pinColor, 1f);
+                    }
+                } else {
+                    hideInfo();
+                    cSelected = null;
+                }
+            }
+
+
             if (getButtonPress() == TButtonType.bottom) {
                 foreach (GameObject o in selection.Values) {
                     o.GetComponent<NormalNode>().remove();
@@ -162,7 +186,7 @@ public class DisplayScript : MonoBehaviour
             }
         }
 
-        print(getTouchType());
+        print(textObject.active);
         animateSelected();
         circleDeg = (circleDeg + 1f) % 360f;
     }
