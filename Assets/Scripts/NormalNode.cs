@@ -61,6 +61,10 @@ public class NormalNode : MonoBehaviour
         t.LookAt(gPos);
     }
 
+    public Color getColor() {
+        return this.color;
+    }
+
     public void setInfo(NodeInfo info) {
         this.info = info;
     }

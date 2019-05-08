@@ -22,18 +22,20 @@ public class DisplayScript : MonoBehaviour
     private GameObject lastTouched;
     private int missCount = 0;
 
+
+    public LayerMask noTouch;
     public LayerMask layerMask;
 
     private float alpha = 0.0f;
     public float alphaIncrement = 1f;
 
-    private List<GameObject> selection;
+    private Dictionary<GameObject, GameObject> selection;
 
     void Start() {
         line = Instantiate(linePrefab);
         lineTransform = line.transform;
         textDisplay = textObject.GetComponent<TextDisplay>();
-        selection = new List<GameObject>();
+        selection = new Dictionary<GameObject, GameObject>();
     }
 
     // Update is called once per frame
@@ -81,16 +83,28 @@ public class DisplayScript : MonoBehaviour
         }
 
         if (lastTouched != null && grabSelection.state && !grabSelection.lastState) {
-            if (selection.Contains(lastTouched)) {
+            if (selection.ContainsKey(lastTouched)) {
+                selection[lastTouched].GetComponent<NormalNode>().remove();
                 selection.Remove(lastTouched);
             } else {
-                selection.Add(lastTouched);
+                GameObject copy = Instantiate(lastTouched);
+                NormalNode nCopy = copy.GetComponent<NormalNode>();
+                copy.transform.position = controllerPose.transform.position;
+                nCopy.setColor(lastTouched.GetComponent<NormalNode>().getColor());
+                nCopy.size = 0.02f;
+                copy.layer = noTouch;
+                nCopy.init(lastTouched.GetComponent<NormalNode>().getInfo());
+                selection.Add(lastTouched, copy);
             }
         }
 
-        foreach (GameObject o in selection) {
+        foreach (GameObject o in selection.Keys) {
             o.GetComponent<NormalNode>().tempColor(this.line.GetComponent<Renderer>().material.color, 1f);
         }
+
+    }
+
+    private void animateSelected() {
 
     }
 
