@@ -12,7 +12,7 @@ public class CSVReader {
     private string file;
     private StreamReader reader;
 
-    private char delimeter = ',';
+    private char delimeter = '~';
     private string filter = "";
 
     public List<string> categories;
@@ -20,7 +20,7 @@ public class CSVReader {
 
     public CSVReader(string file) {
         this.file = file;
-        reader = new StreamReader(File.OpenRead(file));
+        reader = new StreamReader(File.OpenRead(file), System.Text.Encoding.UTF8, true);
         processData();
     }
 

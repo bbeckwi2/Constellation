@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class DataContainer : MonoBehaviour
 {
-    public string PATH = "CSV/movies.csv";
+    public string PATH = "Assets/CSV/movies.csv";
     private CSVReader reader;
     public GameObject constellationSpawner;
-    
+    public List<Movie> movies;
+
     // Start is called before the first frame update
     void Start() {
         reader = new CSVReader(PATH, '~', "\"");
         reader.debugCategories();
+        movies = MovieInfo.generateFromReader(reader);
+        Debug.Log("Movie Count:" + movies.Count);
         GameObject cS = Instantiate(constellationSpawner);
         ConstellationManager cM = cS.GetComponent<ConstellationManager>();
         NodeInfo gen;
@@ -32,7 +35,6 @@ public class DataContainer : MonoBehaviour
 
         for (int i=0; i < 20; i++) {
             gen.genreType = (GenreType)values.GetValue(random.Next(values.Length));
-            print(gen.genreType);
             cM.addNode(gen);
         }
     }

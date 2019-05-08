@@ -53,7 +53,6 @@ public static class GenreTypeMethods {
     };
 
     public static Color getColor(this GenreType t) {
-        Debug.Log(colors[(int) t]);
         return colors[(int) t];
     }
 
