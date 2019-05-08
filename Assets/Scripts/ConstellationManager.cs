@@ -12,12 +12,13 @@ public class ConstellationManager : MonoBehaviour
 
     public float BOX_SIZE = 5;
 
+    public NormalNode mainNode;
     private RRT rTree;
     private float dying = -1f;
     private bool isInit = false;
 
     /* Generates the core star */
-    public void init(NodeInfo info) {
+    public void init(NodeInfo info, GameObject fab) {
         rTree = new RRT();
         rTree.XMAX = BOX_SIZE;
         rTree.XMIN = -BOX_SIZE;
@@ -26,11 +27,15 @@ public class ConstellationManager : MonoBehaviour
         rTree.ZMAX = BOX_SIZE;
         rTree.ZMIN = -BOX_SIZE;
         rTree.START_POS = this.transform.position;
-        rTree.nodeFab = movieFab;
+        rTree.nodeFab = fab;
         rTree.connectionFab = connectionFab;
-        GameObject n = rTree.init(getFab(info), info);
-        n.GetComponent<NormalNode>().size = 0.75f;
+        mainNode = rTree.init(getFab(info), info).GetComponent<NormalNode>();
+        mainNode.size = 0.75f;
         isInit = true;
+    }
+
+    public void init(NodeInfo info) {
+        init(info, movieFab);
     }
    
     /* Gets the prefab for the specific type */

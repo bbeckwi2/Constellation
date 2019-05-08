@@ -8,6 +8,9 @@ public class FloatyMove : MonoBehaviour{
     public SteamVR_Behaviour_Pose lControllerPose;
     public SteamVR_Action_Single rTriggerPull;
     public SteamVR_Behaviour_Pose rControllerPose;
+    public SteamVR_Action_Boolean lGripPull;
+    public SteamVR_Action_Boolean rGripPull;
+
     public GameObject cameraRig;
     public float dampening = 0.99f;
     public float velocity = 0.01f;
@@ -38,6 +41,10 @@ public class FloatyMove : MonoBehaviour{
         lSpeed = movePlayer(lControllerPose, lTriggerPull, lSpeed);
         rSpeed = movePlayer(rControllerPose, rTriggerPull, rSpeed);
         Vector3 cameraPos = cameraRig.transform.position;
+        if (lGripPull.state || rGripPull.state) {
+            lSpeed *= .95f;
+            rSpeed *= .95f;
+        }
         cameraRig.transform.position = cameraPos + rSpeed + lSpeed;
     }
 }

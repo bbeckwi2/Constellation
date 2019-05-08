@@ -123,7 +123,7 @@ public class NormalNode : MonoBehaviour
             // If we are in the process of dying shrink stuff and decrement dying
             this.dying--;
             if (this.scale > 0) {
-                this.scale -= 0.001f;
+                this.scale -= 0.005f;
                 this.gameObject.transform.localScale = new Vector3(scale, scale, scale);
             } else {
                 this.gameObject.transform.localScale = new Vector3(0f, 0f, 0f);
@@ -135,7 +135,7 @@ public class NormalNode : MonoBehaviour
             }
 
             if (this.cScale > 0) {
-                cScale -= 0.01f;
+                cScale -= 0.02f;
                 this.connection.transform.localScale = new Vector3(this.connection.transform.localScale.x, this.connection.transform.localScale.y, cScale);
             } else {
                 this.connection.transform.localScale = new Vector3(0f, 0f, 0f);

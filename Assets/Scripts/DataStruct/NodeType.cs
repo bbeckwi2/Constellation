@@ -8,5 +8,6 @@ public enum NodeType {
     actor = 1,
     genre = 2,
     productionCompany = 3,
+    custom = -1,
     // Feel free to add more to this list. ~Brandon
 }

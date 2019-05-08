@@ -22,7 +22,11 @@ public class DisplayScript : MonoBehaviour
     private GameObject lastTouched;
     private int missCount = 0;
 
+    public GameObject customNodeFab;
+
     public float middleButtonRad = 0.4f;
+
+    public GameObject ConstellationSpawner;
 
     public LayerMask noTouch;
     public LayerMask layerMask;
@@ -30,7 +34,14 @@ public class DisplayScript : MonoBehaviour
     private float alpha = 0.0f;
     public float alphaIncrement = 1f;
 
-    public float maxRad = 0.05f;
+    public float outerLimit = 0.1f;
+    public float innerLimit = 0.01f;
+    public float middleLimit = 0.05f;
+
+    private Color originalColor;
+
+    public Color deleteColor = new Color(1f, 0f, 0f);
+
     private float rad = 0.05f;
 
     private float circleDeg = 0.0f;
@@ -42,20 +53,31 @@ public class DisplayScript : MonoBehaviour
         lineTransform = line.transform;
         textDisplay = textObject.GetComponent<TextDisplay>();
         selection = new Dictionary<GameObject, GameObject>();
+        originalColor = line.GetComponent<Renderer>().material.color;
     }
 
     // Update is called once per frame
     void Update() {
+
+        foreach (GameObject o in selection.Keys) {
+            o.GetComponent<NormalNode>().tempColor(originalColor, 1f);
+        }
+
         /* This is for both style and user feedback */
-        if (getTouchType() == TButtonType.middle && alpha < 255f) {
+        if ((getTouchType() == TButtonType.middle || getTouchType() == TButtonType.left) && alpha < 255f) {
             alpha += alphaIncrement;
         } else if (alpha > 0f) {
             alpha -= alphaIncrement;
         }
 
+        if (getTouchType() == TButtonType.left) {
+            line.GetComponent<Renderer>().material.color = deleteColor;
+        } else {
+            line.GetComponent<Renderer>().material.color = originalColor;
+        }
+
         /* This handles the laser that shoots out of the controller and how it collides with things */
         if (alpha > 0) {
-
             RaycastHit hit;
 
             if (Physics.Raycast(controllerPose.transform.position, transform.forward, out hit, 20, layerMask)) {
@@ -65,7 +87,7 @@ public class DisplayScript : MonoBehaviour
                     if (lastTouched != null && !lastTouched.Equals(o)) {
 
                     } else {
-                        o.GetComponent<NormalNode>().tempColor(this.line.GetComponent<Renderer>().material.color, 1f);
+                        o.GetComponent<NormalNode>().tempColor(line.GetComponent<Renderer>().material.color, 1f);
                         lastTouched = o;
                         displayInfo(o.GetComponent<NormalNode>().getInfo());
                     }
@@ -88,25 +110,56 @@ public class DisplayScript : MonoBehaviour
             hideInfo();
         }
 
-        if (lastTouched != null && isClick.state && !isClick.lastState && getButtonPress() == TButtonType.middle) {
-            if (selection.ContainsKey(lastTouched)) {
-                selection[lastTouched].GetComponent<NormalNode>().remove();
-                selection.Remove(lastTouched);
-            } else {
-                GameObject copy = Instantiate(lastTouched);
-                NormalNode nCopy = copy.GetComponent<NormalNode>();
-                nCopy.setColor(lastTouched.GetComponent<NormalNode>().getColor());
-                nCopy.size = 0.02f;
-                nCopy.nodeGrowthRate = 0.001f;
-                copy.layer = noTouch;
-                nCopy.init(lastTouched.GetComponent<NormalNode>().getInfo());
-                copy.transform.parent = controllerPose.transform;
-                selection.Add(lastTouched, copy);
+        if (getTouchType() == TButtonType.bottom) {
+            if (rad < outerLimit) 
+                rad = Mathf.Min(rad + 0.001f, outerLimit);
+        } else if (getTouchType() == TButtonType.top) {
+            if (rad > innerLimit) 
+                rad = Mathf.Max(rad - 0.001f, innerLimit);
+        } else {
+            if (rad > middleLimit) {
+                rad = Mathf.Max(rad - 0.001f, middleLimit);
+            } else if (rad < middleLimit) {
+                rad = Mathf.Min(rad + 0.001f, middleLimit);
             }
         }
 
-        foreach (GameObject o in selection.Keys) {
-            o.GetComponent<NormalNode>().tempColor(this.line.GetComponent<Renderer>().material.color, 1f);
+        if (isClick.state && !isClick.lastState ) {
+            if (lastTouched != null && getButtonPress() == TButtonType.middle) {
+                if (selection.ContainsKey(lastTouched)) {
+                    selection[lastTouched].GetComponent<NormalNode>().remove();
+                    selection.Remove(lastTouched);
+                } else {
+                    GameObject copy = Instantiate(lastTouched);
+                    NormalNode nCopy = copy.GetComponent<NormalNode>();
+                    nCopy.setColor(lastTouched.GetComponent<NormalNode>().getColor());
+                    nCopy.size = 0.02f;
+                    nCopy.nodeGrowthRate = 0.001f;
+                    copy.layer = noTouch;
+                    nCopy.init(lastTouched.GetComponent<NormalNode>().getInfo());
+                    copy.transform.parent = controllerPose.transform;
+                    selection.Add(lastTouched, copy);
+                }
+            }
+
+            if (lastTouched != null && getButtonPress() == TButtonType.left) {
+                lastTouched.GetComponent<NormalNode>().remove();
+                foreach (GameObject o in selection.Values) {
+                    o.GetComponent<NormalNode>().remove();
+                }
+                selection.Clear();
+            }
+
+            if (getButtonPress() == TButtonType.bottom) {
+                foreach (GameObject o in selection.Values) {
+                    o.GetComponent<NormalNode>().remove();
+                }
+                selection.Clear();
+            }
+
+            if (getButtonPress() == TButtonType.top) {
+                spawnConstellation();
+            }
         }
 
         print(getTouchType());
@@ -121,6 +174,44 @@ public class DisplayScript : MonoBehaviour
         return getTouchType();
     }
 
+    private void spawnConstellation() {
+
+        if (selection.Count <= 0) {
+            return;
+        }
+
+        NodeInfo n;
+        n.name = "Custom Node";
+        n.details = "Filters: ";
+        n.type = NodeType.custom;
+        n.genreType = GenreType.None;
+        List<NodeInfo> info = new List<NodeInfo>();
+
+        Vector3 tColor = Vector3.zero;
+
+        foreach (GameObject o in selection.Values) {
+            NormalNode nN = o.GetComponent<NormalNode>(); 
+            n.details += nN.getInfo().name + ", ";
+            info.Add(nN.getInfo());
+            Color c = nN.getColor();
+            tColor += new Vector3(c.r, c.g, c.b);
+            nN.remove();
+        }
+
+        selection.Clear();
+
+        tColor /= info.Count;
+        GameObject constellation = Instantiate(ConstellationSpawner);
+        constellation.transform.position = controllerPose.transform.position;
+        ConstellationManager cM = constellation.GetComponent<ConstellationManager>();
+        cM.init(n, customNodeFab);
+        cM.mainNode.setColor(new Color(tColor.x, tColor.y, tColor.z));
+
+        foreach (NodeInfo i in info) {
+            cM.addNode(i);
+        }
+    }
+
     private TButtonType getTouchType() {
         if (!this.isTouch.state) {
             return TButtonType.none;
@@ -129,6 +220,7 @@ public class DisplayScript : MonoBehaviour
         if (Vector2.Distance(Vector2.zero, padPos.axis) < middleButtonRad) {
             return TButtonType.middle;
         }
+
         float s = Mathf.Sin(-0.785398f);
         float c = Mathf.Cos(-0.785398f);
         Vector2 rotPoint = new Vector2(padPos.axis.x * c - padPos.axis.y * s, padPos.axis.x * s + padPos.axis.y * c);
