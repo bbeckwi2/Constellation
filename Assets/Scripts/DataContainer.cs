@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class DataContainer : MonoBehaviour
 {
-    public string PATH = "";
+    public string PATH = "CSV/movies.csv";
     private CSVReader reader;
     public GameObject constellationSpawner;
     
     // Start is called before the first frame update
     void Start() {
-        //reader = new CSVReader(PATH);
-        //reader.debugCategories();
+        reader = new CSVReader(PATH, '~', "\"");
+        reader.debugCategories();
         GameObject cS = Instantiate(constellationSpawner);
         ConstellationManager cM = cS.GetComponent<ConstellationManager>();
         NodeInfo gen;

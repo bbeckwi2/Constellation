@@ -18,7 +18,7 @@ public class ConstellationManager : MonoBehaviour
     private bool isInit = false;
 
     /* Generates the core star */
-    public void init(NodeInfo info, GameObject fab) {
+    public void init(NodeInfo info, GameObject fab, float size) {
         rTree = new RRT();
         rTree.XMAX = BOX_SIZE;
         rTree.XMIN = -BOX_SIZE;
@@ -29,13 +29,17 @@ public class ConstellationManager : MonoBehaviour
         rTree.START_POS = this.transform.position;
         rTree.nodeFab = fab;
         rTree.connectionFab = connectionFab;
-        mainNode = rTree.init(getFab(info), info).GetComponent<NormalNode>();
-        mainNode.size = 0.75f;
+        mainNode = rTree.init(fab, info).GetComponent<NormalNode>();
+        mainNode.size = size;
         isInit = true;
     }
 
+    public void init(NodeInfo info, GameObject fab) {
+        init(info, fab, 0.75f);
+    }
+
     public void init(NodeInfo info) {
-        init(info, movieFab);
+        init(info, getFab(info), 0.75f);
     }
    
     /* Gets the prefab for the specific type */

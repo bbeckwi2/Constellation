@@ -93,7 +93,7 @@ public class DisplayScript : MonoBehaviour
         if (alpha > 0) {
             RaycastHit hit;
 
-            if (Physics.Raycast(controllerPose.transform.position, transform.forward, out hit, 20, layerMask)) {
+            if (Physics.Raycast(controllerPose.transform.position, transform.forward, out hit, 50, layerMask)) {
                 showLine(hit.point, hit.distance);
                 GameObject o = hit.transform.gameObject;
                 if (o.GetComponent<NormalNode>() != null) {
@@ -186,7 +186,6 @@ public class DisplayScript : MonoBehaviour
             }
         }
 
-        print(textObject.active);
         animateSelected();
         circleDeg = (circleDeg + 1f) % 360f;
     }
@@ -228,7 +227,7 @@ public class DisplayScript : MonoBehaviour
         GameObject constellation = Instantiate(ConstellationSpawner);
         constellation.transform.position = controllerPose.transform.position;
         ConstellationManager cM = constellation.GetComponent<ConstellationManager>();
-        cM.init(n, customNodeFab);
+        cM.init(n, customNodeFab, 0.50f);
         cM.mainNode.setColor(new Color(tColor.x, tColor.y, tColor.z));
 
         foreach (NodeInfo i in info) {
@@ -272,9 +271,9 @@ public class DisplayScript : MonoBehaviour
     }
 
     private void displayInfo(NodeInfo info) {
-        textObject.SetActive(true);
         textDisplay.setTitle(info.name);
         textDisplay.setText(textDisplay.formatTextForMain(info.details));
+        textObject.SetActive(true);
     }
 
     private void hideInfo() {

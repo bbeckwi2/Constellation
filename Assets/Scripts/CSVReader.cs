@@ -24,9 +24,10 @@ public class CSVReader {
         processData();
     }
 
-    public CSVReader(string file, char delimeter) {
+    public CSVReader(string file, char delimeter, string filter) {
         this.delimeter = delimeter;
         this.file = file;
+        this.filter = filter;
         reader = new StreamReader(File.OpenRead(file));
         processData();
     }
@@ -54,8 +55,6 @@ public class CSVReader {
                 continue;
             }
 
-            Debug.Log(count);
-            Debug.Log(vals.Length);
             for (int i = 0; i < categories.Count; i++) {
                 data[categories[i]].Add(Regex.Replace(vals[i], filter, string.Empty));
             }
