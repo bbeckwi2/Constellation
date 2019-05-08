@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
+  m_AmbientSkyColor: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 0.5
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 81f714daf7144784b8a2f42f1cd30927, type: 2}
   m_HaloStrength: 0.5
@@ -290,65 +290,7 @@ MonoBehaviour:
   dampening: 0.995
   velocity: 0.03
   maxVelocity: 0.2
---- !u!1 &759923929 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 498285897857496177, guid: 8b75337fc84381143ada6015c2e9d752,
-    type: 3}
-  m_PrefabInstance: {fileID: 314367304}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &849507507 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1000014254142504, guid: 4d293c8e162f3874b982baadd71153d2,
-    type: 3}
-  m_PrefabInstance: {fileID: 1524281287}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &908381330 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7811467977690620528, guid: 0d51938c930b1804caa146684ae8c7af,
-    type: 3}
-  m_PrefabInstance: {fileID: 7811467977524670178}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1011366567 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 124034, guid: 4d293c8e162f3874b982baadd71153d2,
-    type: 3}
-  m_PrefabInstance: {fileID: 1524281287}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1011366568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1011366567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4cbd0ae693952e4787552f572d601ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handType: 1
-  controllerPose: {fileID: 2123076040}
-  isClick:
-    actionPath: /actions/default/in/lTrackClick
-    needsReinit: 0
-  isTouch:
-    actionPath: /actions/default/in/lTrackTouch
-    needsReinit: 0
-  padPos:
-    actionPath: /actions/default/in/lTrackPos
-    needsReinit: 0
-  grabSelection:
-    actionPath: /actions/default/in/lSelect
-    needsReinit: 0
-  textObject: {fileID: 1675038784}
-  headObject: {fileID: 849507507}
-  linePrefab: {fileID: 992681625550100842, guid: b777a4286f7783346a0b7571f62679b2,
-    type: 3}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  alphaIncrement: 17
---- !u!43 &1041029598
+--- !u!43 &686419952
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -508,6 +450,69 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &759923929 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 498285897857496177, guid: 8b75337fc84381143ada6015c2e9d752,
+    type: 3}
+  m_PrefabInstance: {fileID: 314367304}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &849507507 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1000014254142504, guid: 4d293c8e162f3874b982baadd71153d2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1524281287}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &908381330 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7811467977690620528, guid: 0d51938c930b1804caa146684ae8c7af,
+    type: 3}
+  m_PrefabInstance: {fileID: 7811467977524670178}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1011366567 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 124034, guid: 4d293c8e162f3874b982baadd71153d2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1524281287}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1011366568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011366567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4cbd0ae693952e4787552f572d601ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handType: 1
+  controllerPose: {fileID: 2123076040}
+  isClick:
+    actionPath: /actions/default/in/lTrackClick
+    needsReinit: 0
+  isTouch:
+    actionPath: /actions/default/in/lTrackTouch
+    needsReinit: 0
+  padPos:
+    actionPath: /actions/default/in/lTrackPos
+    needsReinit: 0
+  grabSelection:
+    actionPath: /actions/default/in/lSelect
+    needsReinit: 0
+  textObject: {fileID: 1675038784}
+  headObject: {fileID: 849507507}
+  linePrefab: {fileID: 992681625550100842, guid: b777a4286f7783346a0b7571f62679b2,
+    type: 3}
+  middleButtonRad: 0.4
+  noTouch:
+    serializedVersion: 2
+    m_Bits: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  alphaIncrement: 17
+  maxRad: 0.05
 --- !u!1 &1190411025 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 159396, guid: 4d293c8e162f3874b982baadd71153d2,
@@ -544,10 +549,15 @@ MonoBehaviour:
   headObject: {fileID: 849507507}
   linePrefab: {fileID: 8152315014387791834, guid: cff618a06b043b54ba61b13bfb0a1a18,
     type: 3}
+  middleButtonRad: 0.4
+  noTouch:
+    serializedVersion: 2
+    m_Bits: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 512
   alphaIncrement: 17
+  maxRad: 0.05
 --- !u!1 &1199861634
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,40 +603,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &1361571192
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &1524281287
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -685,11 +661,11 @@ PrefabInstance:
     - target: {fileID: 3380982, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1041029598}
+      objectReference: {fileID: 686419952}
     - target: {fileID: 2348914, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 1361571192}
+      objectReference: {fileID: 1837298331}
     - target: {fileID: 114000010110554832, guid: 4d293c8e162f3874b982baadd71153d2,
         type: 3}
       propertyPath: poseAction.actionPath
@@ -720,6 +696,40 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 391624883}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &1837298331
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &2123076040 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114000010876603736, guid: 4d293c8e162f3874b982baadd71153d2,

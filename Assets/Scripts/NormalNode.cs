@@ -18,7 +18,7 @@ public class NormalNode : MonoBehaviour
 
     private int dying = -1;
 
-    
+    public float nodeGrowthRate = 0.01f;
     private float scale = 0.0f;
     private float cScaleGoal = 0.0f;
     private float cScale = 0.0f;
@@ -149,12 +149,12 @@ public class NormalNode : MonoBehaviour
         } else {
             // This is used to grow the nodes and their connections 
             if (this.scale < size) {
-                this.scale += 0.01f;
+                this.scale += nodeGrowthRate;
                 this.gameObject.transform.localScale = new Vector3(scale, scale, scale);
             }
 
             if (this.cScale < cScaleGoal) {
-                cScale += 0.05f;
+                cScale += nodeGrowthRate * 5f;
                 this.connection.transform.localScale = new Vector3(this.connection.transform.localScale.x, this.connection.transform.localScale.y, cScale);
             }
         }

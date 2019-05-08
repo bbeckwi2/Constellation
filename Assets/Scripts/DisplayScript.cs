@@ -22,12 +22,18 @@ public class DisplayScript : MonoBehaviour
     private GameObject lastTouched;
     private int missCount = 0;
 
+    public float middleButtonRad = 0.4f;
 
     public LayerMask noTouch;
     public LayerMask layerMask;
 
     private float alpha = 0.0f;
     public float alphaIncrement = 1f;
+
+    public float maxRad = 0.05f;
+    private float rad = 0.05f;
+
+    private float circleDeg = 0.0f;
 
     private Dictionary<GameObject, GameObject> selection;
 
@@ -41,7 +47,7 @@ public class DisplayScript : MonoBehaviour
     // Update is called once per frame
     void Update() {
         /* This is for both style and user feedback */
-        if (isTouch.state && alpha < 255f) {
+        if (getTouchType() == TButtonType.middle && alpha < 255f) {
             alpha += alphaIncrement;
         } else if (alpha > 0f) {
             alpha -= alphaIncrement;
@@ -82,18 +88,19 @@ public class DisplayScript : MonoBehaviour
             hideInfo();
         }
 
-        if (lastTouched != null && grabSelection.state && !grabSelection.lastState) {
+        if (lastTouched != null && isClick.state && !isClick.lastState && getButtonPress() == TButtonType.middle) {
             if (selection.ContainsKey(lastTouched)) {
                 selection[lastTouched].GetComponent<NormalNode>().remove();
                 selection.Remove(lastTouched);
             } else {
                 GameObject copy = Instantiate(lastTouched);
                 NormalNode nCopy = copy.GetComponent<NormalNode>();
-                copy.transform.position = controllerPose.transform.position;
                 nCopy.setColor(lastTouched.GetComponent<NormalNode>().getColor());
                 nCopy.size = 0.02f;
+                nCopy.nodeGrowthRate = 0.001f;
                 copy.layer = noTouch;
                 nCopy.init(lastTouched.GetComponent<NormalNode>().getInfo());
+                copy.transform.parent = controllerPose.transform;
                 selection.Add(lastTouched, copy);
             }
         }
@@ -102,10 +109,50 @@ public class DisplayScript : MonoBehaviour
             o.GetComponent<NormalNode>().tempColor(this.line.GetComponent<Renderer>().material.color, 1f);
         }
 
+        print(getTouchType());
+        animateSelected();
+        circleDeg = (circleDeg + 1f) % 360f;
+    }
+
+    private TButtonType getButtonPress() {
+        if (!this.isClick.state) {
+            return TButtonType.none;
+        }
+        return getTouchType();
+    }
+
+    private TButtonType getTouchType() {
+        if (!this.isTouch.state) {
+            return TButtonType.none;
+        }
+
+        if (Vector2.Distance(Vector2.zero, padPos.axis) < middleButtonRad) {
+            return TButtonType.middle;
+        }
+        float s = Mathf.Sin(-0.785398f);
+        float c = Mathf.Cos(-0.785398f);
+        Vector2 rotPoint = new Vector2(padPos.axis.x * c - padPos.axis.y * s, padPos.axis.x * s + padPos.axis.y * c);
+        if (rotPoint.x > 0f && rotPoint.y > 0f) {
+            return TButtonType.top;
+        } else if (rotPoint.x < 0f && rotPoint.y < 0f) {
+            return TButtonType.bottom;
+        } else if (rotPoint.x > 0f && rotPoint.y < 0f) {
+            return TButtonType.right;
+        } else {
+            return TButtonType.left;
+        }
     }
 
     private void animateSelected() {
-
+        if (selection.Count <= 0) return;
+        float eOffSet = 360f / (float) selection.Count;
+        float tOffSet = 0f;
+        foreach(GameObject o in selection.Values){
+            float ang = Mathf.Deg2Rad * ((circleDeg + tOffSet));
+            Vector3 pos = new Vector3(Mathf.Sin(ang) * rad, 0.03f, Mathf.Cos(ang) * rad);
+            o.transform.localPosition = pos;
+            tOffSet += eOffSet;
+        }
     }
 
     private void displayInfo(NodeInfo info) {
