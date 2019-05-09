@@ -50,4 +50,5 @@ MonoBehaviour:
   dataFab: {fileID: 2106449240399365910, guid: 46ba4e43f4a413e42b688f9883c3c7d7, type: 3}
   connectionFab: {fileID: 5092220027239640110, guid: e08804eb651668b428e31be344996604,
     type: 3}
-  BOX_SIZE: 5
+  BOX_SIZE: 15
+  mainNode: {fileID: 0}

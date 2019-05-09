@@ -55,12 +55,16 @@ public class ConstellationManager : MonoBehaviour
     }
     
     /* Adds a node, the node shape is determined by the info */
-    public void addNode(NodeInfo info) {
+    public NormalNode addNode(NodeInfo info) {
         GameObject n = rTree.generateNode(getFab(info), info);
+        Color c;
         if (info.type == NodeType.genre) {
-            Color c = info.genreType.getColor();
-            n.GetComponent<NormalNode>().setColor(c);
+            c = info.genreType.getColor();
+        } else {
+            c = info.type.getColor();
         }
+        n.GetComponent<NormalNode>().setColor(c);
+        return n.GetComponent<NormalNode>();
     }
 
     /* The death of the stars */

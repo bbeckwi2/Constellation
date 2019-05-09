@@ -10,6 +10,7 @@ public class FloatyMove : MonoBehaviour{
     public SteamVR_Behaviour_Pose rControllerPose;
     public SteamVR_Action_Boolean lGripPull;
     public SteamVR_Action_Boolean rGripPull;
+    public SteamVR_Action_Boolean menuPush;
 
     public GameObject cameraRig;
     public float dampening = 0.99f;
@@ -46,5 +47,11 @@ public class FloatyMove : MonoBehaviour{
             rSpeed *= .95f;
         }
         cameraRig.transform.position = cameraPos + rSpeed + lSpeed;
+
+        if (menuPush.state && !menuPush.lastState) {
+            cameraRig.transform.position = Vector3.zero;
+            lSpeed = Vector3.zero;
+            rSpeed = Vector3.zero;
+        }
     }
 }

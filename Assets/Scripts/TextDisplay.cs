@@ -60,6 +60,7 @@ public class TextDisplay : MonoBehaviour
                 lineCount++;
             } else if (lineCount == MAX_LINES){
                 outString += " ...";
+                return outString;
             } else {
                 charCount += s.Length;
                 outString += ' ' + s;
