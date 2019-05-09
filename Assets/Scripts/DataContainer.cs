@@ -8,6 +8,7 @@ public class DataContainer : MonoBehaviour
     private CSVReader reader;
     public GameObject constellationSpawner;
     public List<Movie> movies;
+    public Dictionary<GenreType, NodeInfo> genreTypeNodes;
 
     // Start is called before the first frame update
     void Start() {
@@ -17,24 +18,26 @@ public class DataContainer : MonoBehaviour
         Debug.Log("Movie Count:" + movies.Count);
         GameObject cS = Instantiate(constellationSpawner);
         ConstellationManager cM = cS.GetComponent<ConstellationManager>();
-        NodeInfo gen;
-        gen.type = NodeType.genre;
-        gen.name = "Test";
-        gen.genreType = GenreType.Action;
-        gen.details = "";
+
+        genreTypeNodes = new Dictionary<GenreType, NodeInfo>();
 
         NodeInfo mov;
-        mov.type = NodeType.movie;
-        mov.name = "Movie";
-        mov.details = "";
+        mov.type = NodeType.custom;
+        mov.name = "Instructions";
+        mov.details = "Mix and the genres to apply filters! Once you have selected the genres you wish to have simply place the new node in the world. From there take other nodes and spawn further nodes!";
         mov.genreType = GenreType.None;
         cM.init(mov);
-
-        System.Array values = System.Enum.GetValues(typeof(GenreType));
-        System.Random random = new System.Random();
-
-        for (int i=0; i < 20; i++) {
-            gen.genreType = (GenreType)values.GetValue(random.Next(values.Length));
+        
+        foreach (GenreType gT in System.Enum.GetValues(typeof(GenreType))) {
+            NodeInfo gen;
+            gen.type = NodeType.genre;
+            gen.name = gT.getName();
+            gen.genreType = gT;
+            gen.details = gT.getDescription();
+            genreTypeNodes.Add(gT, gen);
+            if (gT == GenreType.None) {
+                continue;
+            }
             cM.addNode(gen);
         }
     }

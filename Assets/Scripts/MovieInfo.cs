@@ -10,7 +10,7 @@ public class MovieInfo {
         for (int i=0; i < reader.data["title"].Count; i++) {
             Movie m = new Movie();
             m.budget = reader.data["budget"][i];
-            m.genres = commaSplit(reader.data["genres"][i]);
+            m.genres = genreSplit(reader.data["genres"][i]);
             m.homepage = reader.data["homepage"][i];
             m.id = reader.data["id"][i];
             m.keywords = commaSplit(reader.data["keywords"][i]);
@@ -37,13 +37,21 @@ public class MovieInfo {
     private static List<string> commaSplit(string s) {
         return s.Split(',').OfType<string>().ToList();
     }
+
+    private static List<GenreType> genreSplit(string s) {
+        List<GenreType> genres = new List<GenreType>();
+        foreach (string sG in commaSplit(s)) {
+            genres.Add(GenreTypeMethods.fromString(sG));
+        }
+        return genres;
+    }
 }
 
 
 [System.Serializable]
 public class Movie {
     public string budget { get; set; }
-    public List<string> genres { get; set; }
+    public List<GenreType> genres { get; set; }
     public string homepage { get; set; }
     public string id { get; set; }
     public List<string> keywords { get; set; }

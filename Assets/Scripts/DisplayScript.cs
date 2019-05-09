@@ -115,6 +115,9 @@ public class DisplayScript : MonoBehaviour
             }
         } else {
             line.SetActive(false);
+            if (cSelected == null) {
+                hideInfo();
+            }
         }
 
         if (getTouchType() == TButtonType.bottom) {
@@ -188,6 +191,7 @@ public class DisplayScript : MonoBehaviour
 
         animateSelected();
         circleDeg = (circleDeg + 1f) % 360f;
+
     }
 
     private TButtonType getButtonPress() {
@@ -271,9 +275,9 @@ public class DisplayScript : MonoBehaviour
     }
 
     private void displayInfo(NodeInfo info) {
+        textObject.SetActive(true);
         textDisplay.setTitle(info.name);
         textDisplay.setText(textDisplay.formatTextForMain(info.details));
-        textObject.SetActive(true);
     }
 
     private void hideInfo() {

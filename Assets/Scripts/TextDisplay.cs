@@ -17,7 +17,6 @@ public class TextDisplay : MonoBehaviour
 
     /* Sets the title text, returns false if the text is too big (sets anyways) */
     public bool setTitle(string title) {
-
         titleMesh.text = title;
 
         if (title.Length > CHARS_TITLE) {
